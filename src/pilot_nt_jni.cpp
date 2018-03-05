@@ -32,16 +32,16 @@ namespace JNI {
 		}
     }
 
-    int Pilot_NT_JNI::cardOperation(int typeOperation, int amount) {
+    int Pilot_NT_JNI::cardOperation(int *typeOperation, int *amount) {
         if (!dll) return -1;
 		try {
 			card_authorize_function function = (card_authorize_function)GetProcAddress(dll, CARD_AUTHORIZE);
 			if (!function) return -2;
             struct auth_answer authAnswer;
 		    memset(&authAnswer, 0, sizeof(authAnswer));
-		    authAnswer.TType = typeOperation;
-		    authAnswer.Amount = amount;
-		    return function(NULL, &authAnswer);
+		    authAnswer.TType = *typeOperation;
+		    authAnswer.Amount = *amount;
+			return function(NULL, &authAnswer);;
 		}
 		catch (...) {
 			FreeLibrary(dll);
@@ -55,7 +55,7 @@ namespace JNI {
 			close_day_function function = (close_day_function)GetProcAddress(dll, CLOSE_DAY);
 			if (!function) return -2;
             struct auth_answer authAnswer;
-		    return function(&authAnswer);
+			return function(&authAnswer);
 		}
 		catch (...) {
 			FreeLibrary(dll);

@@ -7,7 +7,7 @@
 #define SERVICE_MENU "_ServiceMenu"
 #define SET_CONFIG_DATA "_SetConfigData"
 #define CLOSE_DAY "_close_day"
-#define DDL_NAME "native/windows/pilot/pilot_nt.dll"
+#define DDL_NAME L"native/windows/pilot/pilot_nt.dll"
 
 namespace JNI {
 
@@ -24,7 +24,7 @@ namespace JNI {
             explicit Pilot_NT_JNI();
             int checkConnect();
             int setConfigs(const char *params);
-            int cardOperation(int typeOperation, int amount);
+            int cardOperation(int *typeOperation, int *amount);
             int closeDay();
             int showServiceMenu();
             ~Pilot_NT_JNI();

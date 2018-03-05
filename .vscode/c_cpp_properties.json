@@ -54,8 +54,8 @@
                 "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/shared",
                 "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/winrt",
                 "${workspaceRoot}",
-                "${JAVA_HOME}/include/*",
-                "${JAVA_HOME}/include/win32/*"
+                "${JAVA_HOME}/bin/include",
+                "${JAVA_HOME}/bin/include/win32"
             ],
             "defines": [
                 "_DEBUG",
@@ -71,6 +71,8 @@
                     "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/ucrt",
                     "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/shared",
                     "C:/Program Files (x86)/Windows Kits/10/Include/10.0.16299.0/winrt",
+                    "${JAVA_HOME}/bin/include",
+                    "${JAVA_HOME}/bin/include/win32",
                     "${workspaceRoot}"
                 ],
                 "limitSymbolsToIncludedHeaders": true,

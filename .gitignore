@@ -1,4 +1,4 @@
 /native/windows/pilot/*.D
 /native/windows/pilot/*.log
 /native/windows/pilot/p
-program.exe
+bin
