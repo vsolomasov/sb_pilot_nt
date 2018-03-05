@@ -17,16 +17,16 @@ namespace JNI {
 	typedef int(*set_config_data_function)(const char *pConfData);
 	typedef int(*close_day_function)(struct auth_answer *auth_answer);
 
-    class Pilot_nt_JNI {
+    class Pilot_NT_JNI {
         private:
             HMODULE dll;
         public:
-            explicit Pilot_nt_JNI();
+            explicit Pilot_NT_JNI();
             int checkConnect();
             int setConfigs(const char *params);
             int cardOperation(int typeOperation, int amount);
             int closeDay();
             int showServiceMenu();
-            ~Pilot_nt_JNI();
+            ~Pilot_NT_JNI();
     };
 }

@@ -2,11 +2,11 @@
 
 namespace JNI {
 
-    Pilot_nt_JNI::Pilot_nt_JNI() {
+    Pilot_NT_JNI::Pilot_NT_JNI() {
         dll = LoadLibrary(DDL_NAME);
     }
 
-    int Pilot_nt_JNI::checkConnect() {
+    int Pilot_NT_JNI::checkConnect() {
         if (!dll) return -1;
 		try {
 			test_function function = (test_function)GetProcAddress(dll, TEST_PINPAD);
@@ -19,7 +19,7 @@ namespace JNI {
 		}
     }
 
-    int Pilot_nt_JNI::setConfigs(const char *params) {
+    int Pilot_NT_JNI::setConfigs(const char *params) {
         if (!dll) return -1;
 		try {
 			set_config_data_function function = (set_config_data_function)GetProcAddress(dll, SET_CONFIG_DATA);
@@ -32,7 +32,7 @@ namespace JNI {
 		}
     }
 
-    int Pilot_nt_JNI::cardOperation(int typeOperation, int amount) {
+    int Pilot_NT_JNI::cardOperation(int typeOperation, int amount) {
         if (!dll) return -1;
 		try {
 			card_authorize_function function = (card_authorize_function)GetProcAddress(dll, CARD_AUTHORIZE);
@@ -49,7 +49,7 @@ namespace JNI {
         }
     }
 
-    int Pilot_nt_JNI::closeDay() {
+    int Pilot_NT_JNI::closeDay() {
         if (!dll) return -1;
 		try {
 			close_day_function function = (close_day_function)GetProcAddress(dll, CLOSE_DAY);
@@ -63,7 +63,7 @@ namespace JNI {
 		}
     }
 
-    int Pilot_nt_JNI::showServiceMenu() {
+    int Pilot_NT_JNI::showServiceMenu() {
         if (!dll) return -1;
 		try {
 			service_menu_function function = (service_menu_function)GetProcAddress(dll, SERVICE_MENU);
@@ -76,7 +76,7 @@ namespace JNI {
 		}
     }
 
-    Pilot_nt_JNI::~Pilot_nt_JNI() {
+    Pilot_NT_JNI::~Pilot_NT_JNI() {
         FreeLibrary(dll);
     }
 }

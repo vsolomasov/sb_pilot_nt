@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "src/pilot_nt_jni.cpp",
+                "-g", "src/pilot_nt_jni.cpp", "src/test.cpp",
                 "-o", "program"
             ]
         }
