@@ -38,6 +38,15 @@ JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_closeDay(JNIEnv *jenv, 
     return res;
 }
 
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_getStatistics(JNIEnv *jenv, jobject jobj, jboolean jbool) {
+	bool fullReport = (bool) jbool;
+	Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
+	int res = pilot->getStatistics(&fullReport);
+	delete pilot;
+	pilot = 0;
+	return res;
+}
+
 JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_showServiceMenu(JNIEnv *jenv, jobject jobj) {
     Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
     int res = pilot->showServiceMenu();

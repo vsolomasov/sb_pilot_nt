@@ -18,6 +18,9 @@ JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_cardTransaction
 JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_closeDay
   (JNIEnv *, jobject);
 
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_getStatistics
+  (JNIEnv *, jobject, jboolean);
+
 JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_showServiceMenu
   (JNIEnv *, jobject);
 

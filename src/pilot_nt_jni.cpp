@@ -12,8 +12,7 @@ namespace JNI {
 			test_function function = (test_function)GetProcAddress(dll, TEST_PINPAD);
 			if (!function) return -2;
 			return function();
-		}
-		catch (...) {
+		} catch (...) {
 			FreeLibrary(dll);
 			return -3;
 		}
@@ -25,8 +24,7 @@ namespace JNI {
 			set_config_data_function function = (set_config_data_function)GetProcAddress(dll, SET_CONFIG_DATA);
 			if (!function) return -2;
 			return function(params);
-		}
-		catch (...) {
+		} catch (...) {
 			FreeLibrary(dll);
 			return -3;
 		}
@@ -42,8 +40,7 @@ namespace JNI {
 		    authAnswer.TType = *typeOperation;
 		    authAnswer.Amount = *amount;
 			return function(NULL, &authAnswer);;
-		}
-		catch (...) {
+		} catch (...) {
 			FreeLibrary(dll);
 			return -3;
         }
@@ -56,12 +53,25 @@ namespace JNI {
 			if (!function) return -2;
             struct auth_answer authAnswer;
 			return function(&authAnswer);
-		}
-		catch (...) {
+		} catch (...) {
 			FreeLibrary(dll);
 			return -3;
 		}
     }
+
+	int Pilot_NT_JNI::getStatistics(bool *fullReport) {
+		if (!dll) return -1;
+		try {
+			get_statistics function = (get_statistics)GetProcAddress(dll, GET_STATISCTICS);
+			if (!function) return -2;
+			struct auth_answer authAnswer;
+			if (*fullReport) authAnswer.TType = 0;
+			return function(&authAnswer);
+		} catch(...) {
+			FreeLibrary(dll);
+			return -3;
+		}
+	}
 
     int Pilot_NT_JNI::showServiceMenu() {
         if (!dll) return -1;
