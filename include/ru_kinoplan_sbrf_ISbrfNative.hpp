@@ -9,11 +9,14 @@ extern "C" {
 JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_testPinpad
   (JNIEnv *, jobject);
 
-JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_setConfigData
-  (JNIEnv *, jobject, jstring);
-
 JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_cardTransaction
   (JNIEnv *, jobject, jint, jint);
+
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_rollbackLastTransaction
+  (JNIEnv *, jobject, jint);
+
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_setConfigData
+(JNIEnv *, jobject, jstring);
 
 JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_closeDay
   (JNIEnv *, jobject);
@@ -22,6 +25,9 @@ JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_getStatistics
   (JNIEnv *, jobject, jboolean);
 
 JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_showServiceMenu
+  (JNIEnv *, jobject);
+
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_abort
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus
