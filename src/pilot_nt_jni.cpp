@@ -1,125 +1,69 @@
-#include "../include/pilot_nt_jni.hpp"
-#include <string.h>
+#include "./include/pilot.hpp"
+#include "./include/pilot_nt_jni.hpp"
 
-namespace JNI {
+using JNI::Pilot_NT_JNI;
 
-	Pilot_NT_JNI::Pilot_NT_JNI() {
-		dll = LoadLibrary(DDL_NAME);
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_testPinpad(JNIEnv *jenv, jobject jobj) {
+    Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
+    int res = pilot->checkConnect();
+	pilot->~Pilot_NT_JNI();
+    delete pilot;
+    pilot = 0;
+    return res;
+}
+
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_transaction(JNIEnv *jenv, jobject jobj, jint jTypeOperation, jint jAmount) {
+	int typeOperation = (int)jTypeOperation;
+	int amount = (int)jAmount;
+	Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
+
+	int res = null;
+	if (typeOperation == 13) {
+		res = pilot->rollbackLastTrx(amount);
+	} else {
+		res = pilot->cardOperation(&typeOperation, &amount);
 	}
 
-	int Pilot_NT_JNI::checkConnect() {
-		if (!dll) return -1;
-		try {
-			test_function function = (test_function)GetProcAddress(dll, TEST_PINPAD);
-			if (!function) return -2;
-			return function();
-		}
-		catch (...) {
-			FreeLibrary(dll);
-			return -3;
-		}
-	}
+	pilot->~Pilot_NT_JNI();
+	delete pilot;
+	pilot = 0;
+	return res;
+}
 
-	int Pilot_NT_JNI::rollbackLastTrx(DWORD amount) {
-		if (!dll) return -1;
-		try {
-			rollback_trx_function function = (rollback_trx_function)GetProcAddress(dll, ROLLBACK_TRX);
-			if (!function) return -2;
-			return function(amount, NULL);
-		}
-		catch (...) {
-			FreeLibrary(dll);
-			return -3;
-		}
-	}
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_closeDay(JNIEnv *jEnv, jobject jobj) {
+    Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
+    int res = pilot->closeDay();
+	pilot->~Pilot_NT_JNI();
+    delete pilot;
+    pilot = 0;
+    return res;
+}
 
-	int Pilot_NT_JNI::setConfigs(const char *params) {
-		if (!dll) return -1;
-		try {
-			set_config_data_function function = (set_config_data_function)GetProcAddress(dll, SET_CONFIG_DATA);
-			if (!function) return -2;
-			return function(params);
-		}
-		catch (...) {
-			FreeLibrary(dll);
-			return -3;
-		}
-	}
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_getStatistics(JNIEnv *jEnv, jobject jobj, jboolean jbool) {
+	bool fullReport = (bool) jbool;
+	Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
+	int res = pilot->getStatistics(&fullReport);
+	pilot->~Pilot_NT_JNI();
+	delete pilot;
+	pilot = 0;
+	return res;
+}
 
-	int Pilot_NT_JNI::cardOperation(int *typeOperation, int *amount) {
-		if (!dll) return -1;
-		try {
-			card_authorize_function function = (card_authorize_function)GetProcAddress(dll, CARD_AUTHORIZE);
-			if (!function) return -2;
-			struct auth_answer authAnswer;
-			memset(&authAnswer, 0, sizeof(authAnswer));
-			authAnswer.TType = *typeOperation;
-			authAnswer.Amount = *amount;
-			return function(NULL, &authAnswer);
-		}
-		catch (...) {
-			FreeLibrary(dll);
-			return -3;
-		}
-	}
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_showServiceMenu(JNIEnv *jenv, jobject jobj) {
+    Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
+    int res = pilot->showServiceMenu();
+	pilot->~Pilot_NT_JNI();
+    delete pilot;
+    pilot = 0;
+    return res;
+}
 
-	int Pilot_NT_JNI::closeDay() {
-		if (!dll) return -1;
-		try {
-			close_day_function function = (close_day_function)GetProcAddress(dll, CLOSE_DAY);
-			if (!function) return -2;
-			struct auth_answer authAnswer;
-			return function(&authAnswer);;
-		}
-		catch (...) {
-			FreeLibrary(dll);
-			return -3;
-		}
-	}
-
-	int Pilot_NT_JNI::getStatistics(bool *fullReport) {
-		if (!dll) return -1;
-		try {
-			get_statistics_function function = (get_statistics_function)GetProcAddress(dll, GET_STATISCTICS);
-			if (!function) return -2;
-			struct auth_answer authAnswer;
-			if (*fullReport) authAnswer.TType = 0;
-			return function(&authAnswer);
-		}
-		catch (...) {
-			FreeLibrary(dll);
-			return -3;
-		}
-	}
-
-	int Pilot_NT_JNI::showServiceMenu() {
-		if (!dll) return -1;
-		try {
-			service_menu_function function = (service_menu_function)GetProcAddress(dll, SERVICE_MENU);
-			if (!function) return -2;
-			struct auth_answer authAnswer;
-			return function(&authAnswer);
-		}
-		catch (...) {
-			FreeLibrary(dll);
-			return -3;
-		}
-	}
-
-	int Pilot_NT_JNI::abort() {
-		if (!dll) return -1;
-		try {
-			abort_transaction_function function = (abort_transaction_function)GetProcAddress(dll, ABORT_TRANSACTION);
-			if (!function) return -2;
-			return function();
-		}
-		catch (...) {
-			FreeLibrary(dll);
-			return -3;
-		}
-	}
-
-	Pilot_NT_JNI::~Pilot_NT_JNI() {
-		FreeLibrary(dll);
-	}
+JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_setConfigData(JNIEnv *jEnv, jobject jobj, jstring jConfigs) {
+    const char *configs = jEnv->GetStringUTFChars(jConfigs, 0);
+    Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
+    int res = pilot->setConfigs(configs);
+	pilot->~Pilot_NT_JNI();
+    delete pilot;
+    pilot = 0;
+    return res;
 }
