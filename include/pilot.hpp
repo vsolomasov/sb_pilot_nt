@@ -10,7 +10,12 @@
 #define CLOSE_DAY "_close_day"
 #define GET_STATISCTICS "_get_statistics"
 #define ABORT_TRANSACTION "_AbortTransaction"
-#define DDL_NAME L"native/windows/pilot/pilot_nt.dll"
+#define DDL_NAME L"native/windows/sb_pilot/pilot_nt.dll"
+
+#define LOAD_ERROR -11;
+#define FUNC_ERROR -12;
+#define EXCEPTION -13;
+#define UNKOWN_RES -14;
 
 namespace JNI {
 

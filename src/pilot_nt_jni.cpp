@@ -1,5 +1,5 @@
-#include "./include/pilot.hpp"
-#include "./include/pilot_nt_jni.hpp"
+#include "../include/pilot.hpp"
+#include "../include/pilot_nt_jni.hpp"
 
 using JNI::Pilot_NT_JNI;
 
@@ -17,7 +17,7 @@ JNIEXPORT jint JNICALL Java_ru_kinoplan_sbrf_ISbrfNative_transaction(JNIEnv *jen
 	int amount = (int)jAmount;
 	Pilot_NT_JNI *pilot = new Pilot_NT_JNI();
 
-	int res = null;
+	int res = UNKOWN_RES;
 	if (typeOperation == 13) {
 		res = pilot->rollbackLastTrx(amount);
 	} else {
